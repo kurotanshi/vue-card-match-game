@@ -29,19 +29,11 @@ const props = defineProps({
 
 <style scoped>
 .flip-card {
-  display: block;
-  width: 150px;
-  height: 100px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px;
-  margin: 1rem;
+  @apply border border-[#eee] border-2 h-[100px] m-4 w-[150px] block;
 }
 
 .flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
+  @apply h-full text-center w-full relative;
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
@@ -52,17 +44,13 @@ const props = defineProps({
 
 .flip-card-front,
 .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 5px solid #aaa;
-  -webkit-backface-visibility: hidden;
-  /* Safari */
+  @apply border border-[#ddd] h-full border-2 w-full absolute;
   backface-visibility: hidden;
 }
 
 .flip-card-front {
-  background-color: #eee;
+  @apply bg-zinc-100;
+  /* background-color: #eee; */
   background-image: url('./img/cat-bg.png');
   background-size: contain;
   background-repeat: no-repeat;

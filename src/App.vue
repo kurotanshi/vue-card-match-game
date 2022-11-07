@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, watch } from 'vue';
+  import { nextTick, ref, watch } from 'vue';
   import flipCard from './components/flipCard.vue';
 
   const cards = ref([]);
@@ -58,7 +58,9 @@
         class="rounded font-bold bg-blue-500 mx-6 text-white py-2 px-4 hover:bg-blue-700">{{ cards.length > 0 ? '重置' : '開始' }}</button>
     </div>
 
-    <div class="border rounded-xl mx-auto border-4 mt-12 grid grid-flow-col p-10 w-[900px] gap-2 grid-rows-4">
+    <div 
+      v-if="cards.length > 0"
+      class="border rounded-xl mx-auto border-4 mt-12 grid grid-flow-col p-10 w-[900px] gap-2 grid-rows-4">
 
       <flipCard 
         v-for="(n, idx) in cards" 
