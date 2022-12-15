@@ -1,29 +1,9 @@
-# card-match-game
+# card-match-game Quiz
 
-This template should help get you started developing with Vue 3 in Vite.
+試完成以下功能：
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+1. 點擊卡片，卡片會翻開
+2. 點擊兩張不同的卡片，卡片會翻回去
+3. 點擊兩張相同的卡片，卡片會消失
+4. 當所有卡片都消失時，顯示「恭喜破關，再來一局？」的對話框，按下確定後重置遊戲
+5. 將卡片獨立抽出為 Card.vue 元件
