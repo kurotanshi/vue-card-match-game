@@ -24,8 +24,11 @@ const gameInit = () => {
 
 const clickHandler = (idx) => {
   if (twoCards.value.length + 1 <= 2) {
-    openedCard.value.push(idx);
-    twoCards.value.push(cards.value[idx]);
+    if(!openedCard.value.includes(idx)) {
+      // 若index不存在才可push至array
+      openedCard.value.push(idx);
+      twoCards.value.push(cards.value[idx]);
+    }
     if (twoCards.value.length > 1) {
       if (twoCards.value[0] != twoCards.value[1]) {
         // 若翻牌value不相等
@@ -74,7 +77,7 @@ const clickHandler = (idx) => {
         v-for="(n, idx) in cards"
         :key="idx" :cardValue="n"
         :isOpen="openedCard.includes(idx)"
-        :isShow="hideCards.includes(n) > 0 && hideCards.length > 0"
+        :isShow="hideCards.includes(n) > 0"
         @click="clickHandler(idx)"
       />
 
