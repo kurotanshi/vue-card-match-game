@@ -6,24 +6,60 @@
 //  4. 當所有卡片都消失時，顯示「恭喜破關，再來一局？」的對話框，按下確定後重置遊戲
 //  5. 將卡片獨立抽出為 Card.vue 元件
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import card from './Card.vue';
 
 const cards = ref([]);
-const openedCard = ref([]);
+const openedCard = computed(() => cards.value.filter((n) => n.isAvailable && n.isOpened));
 
 const gameInit = () => {
   const numArr = [...new Array(16).keys()].map(i => ++i);
   numArr.sort(() => Math.random() - 0.5);
-  cards.value = numArr.map(d => (d % 8) + 1);
-  openedCard.value = [];
+  //cards.value = numArr.map(d => (d % 8) + 1);
+  cards.value = [];
+  numArr.map(d => (d % 8) + 1).forEach((value, index) => {
+    cards.value.push({
+      idx: index,
+      imageId: value,
+      isOpened: false,
+      isAvailable: true
+    })
+  });
+  //openedCard.value = [];
 }
 
-const clickHandler = (idx) => {    
-  openedCard.value.push(idx);
-  
+const clickHandler = (idx) => {
+  if (!cards.value[idx].isAvailable || (!cards.value[idx].isOpened && openedCard.value.length === 2)) return;
+
+  cards.value[idx].isOpened = !cards.value[idx].isOpened;
+  if (openedCard.value.length !== 2) return;
+
   window.setTimeout(() => {
-    openedCard.value = [];
+    if (openedCard.value[0].imageId === openedCard.value[1].imageId)
+    {
+      openedCard.value.forEach((item) => {
+        item.isAvailable = false;
+      })
+      if (cards.value.find(item => item.isAvailable) === undefined) {
+        window.setTimeout(() => {
+          if (confirm('恭喜破關，再來一局？')) {
+            gameInit();
+          }
+        });
+      }
+    }
+    else
+    {
+      openedCard.value.forEach((item) => {
+        item.isOpened = false;
+      })
+    }
   }, 1000);
+  // openedCard.value.push(idx);
+  
+  // window.setTimeout(() => {
+  //   openedCard.value = [];
+  // }, 1000);
 }
 </script>
 
@@ -38,8 +74,10 @@ const clickHandler = (idx) => {
     </div>
 
     <div class="rounded-xl mx-auto border-4 mt-12 grid grid-flow-col p-10 w-[900px] gap-2 grid-rows-4">
-      
-      <div 
+
+      <card v-for="(n, idx) in cards" v-bind="n" @click="clickHandler(idx)" />
+
+      <!-- <div 
         v-for="(n, idx) in cards"
         class="flip-card"
         :class="{
@@ -52,8 +90,7 @@ const clickHandler = (idx) => {
             <img :src="`./img/cat-0${n}.jpg`" alt="">
           </div>
         </div>
-      </div>
-
+      </div> -->
     </div>
   </div>
 </template>
