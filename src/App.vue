@@ -22,6 +22,9 @@ const gameInit = () => {
 }
 
 const clickHandler = (idx) => {
+  if (openedCard.value.includes(idx)) return;
+  if (pickedCard.value.includes(idx)) return;
+
   if (openedCard.value.length < 2) openedCard.value.push(idx);
   if (openedCard.value.length === 2) checkCardNumbers(openedCard.value[0], openedCard.value[1]);
 }
