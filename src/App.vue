@@ -11,6 +11,7 @@ import Card from './card.vue'
 import CustomModal from './customModal.vue'
 
 const cardNumbers = ref([]);
+const isModalOpen = ref(false);
 const openedCard = ref([]);
 const pickedCard = ref([]);
 
@@ -20,6 +21,7 @@ const gameInit = () => {
   cardNumbers.value = numArr.map(d => (d % 8) + 1);
   openedCard.value = [];
   pickedCard.value = [];
+  isModalOpen.value = false
 }
 
 const clickHandler = (idx) => {
@@ -39,6 +41,8 @@ const checkCardNumbers = (idx1, idx2) => {
     }
 
     openedCard.value = [];
+
+    if (pickedCard.value.length === 16) isModalOpen.value = true
   }, 1000);
 }
 </script>
@@ -65,7 +69,7 @@ const checkCardNumbers = (idx1, idx2) => {
     </div>
   </div>
 
-  <CustomModal />
+  <CustomModal :open="isModalOpen" @restartGame="gameInit"/>
 </template>
 
 <style scoped>
