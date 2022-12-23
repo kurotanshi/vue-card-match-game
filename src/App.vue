@@ -9,13 +9,13 @@
 import { ref } from 'vue';
 import Card from './card.vue'
 
-const cards = ref([]);
+const cardNumbers = ref([]);
 const openedCard = ref([]);
 
 const gameInit = () => {
   const numArr = [...new Array(16).keys()].map(i => ++i);
   numArr.sort(() => Math.random() - 0.5);
-  cards.value = numArr.map(d => (d % 8) + 1);
+  cardNumbers.value = numArr.map(d => (d % 8) + 1);
   openedCard.value = [];
 }
 
@@ -40,10 +40,10 @@ const clickHandler = (idx) => {
 
     <div class="rounded-xl mx-auto border-4 mt-12 grid grid-flow-col p-10 w-[900px] gap-2 grid-rows-4">
       <Card
-        v-for="(card, idx) in cards"
+        v-for="(cardNumber, idx) in cardNumbers"
         :isOpen="openedCard.includes(idx)"
         :isPicked="false"
-        :imgUrl="`./img/cat-0${card}.jpg`"
+        :imgUrl="`./img/cat-0${cardNumber}.jpg`"
         @click="clickHandler(idx)"
       />
     </div>
