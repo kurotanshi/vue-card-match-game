@@ -8,6 +8,7 @@
 
 import { ref } from 'vue';
 import Card from './card.vue'
+import CustomModal from './customModal.vue'
 
 const cardNumbers = ref([]);
 const openedCard = ref([]);
@@ -62,6 +63,8 @@ const checkCardNumbers = (idx1, idx2) => {
       />
     </div>
   </div>
+
+  <CustomModal />
 </template>
 
 <style scoped>
