@@ -11,18 +11,28 @@ import Card from './card.vue'
 
 const cardNumbers = ref([]);
 const openedCard = ref([]);
+const pickedCard = ref([]);
 
 const gameInit = () => {
   const numArr = [...new Array(16).keys()].map(i => ++i);
   numArr.sort(() => Math.random() - 0.5);
   cardNumbers.value = numArr.map(d => (d % 8) + 1);
   openedCard.value = [];
+  pickedCard.value = [];
 }
 
-const clickHandler = (idx) => {    
-  openedCard.value.push(idx);
-  
+const clickHandler = (idx) => {
+  if (openedCard.value.length < 2) openedCard.value.push(idx);
+  if (openedCard.value.length === 2) checkCardNumbers(openedCard.value[0], openedCard.value[1]);
+}
+
+const checkCardNumbers = (idx1, idx2) => {
   window.setTimeout(() => {
+    if (cardNumbers.value[idx1] === cardNumbers.value[idx2]) {
+      pickedCard.value.push(idx1);
+      pickedCard.value.push(idx2);
+    }
+
     openedCard.value = [];
   }, 1000);
 }
@@ -42,7 +52,7 @@ const clickHandler = (idx) => {
       <Card
         v-for="(cardNumber, idx) in cardNumbers"
         :isOpen="openedCard.includes(idx)"
-        :isPicked="false"
+        :isPicked="pickedCard.includes(idx)"
         :imgUrl="`./img/cat-0${cardNumber}.jpg`"
         :number="cardNumber"
         @click="clickHandler(idx)"
