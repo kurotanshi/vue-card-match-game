@@ -44,6 +44,7 @@ const clickHandler = (idx) => {
         :isOpen="openedCard.includes(idx)"
         :isPicked="false"
         :imgUrl="`./img/cat-0${cardNumber}.jpg`"
+        :number="cardNumber"
         @click="clickHandler(idx)"
       />
     </div>

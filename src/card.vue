@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps(['isOpen', 'isPicked', 'imgUrl']);
+const props = defineProps(['isOpen', 'isPicked', 'imgUrl', 'number']);
 </script>
 
 <template>
   <div class="flip-card" :class="{ 'open': isOpen }">
     <div class="flip-card-inner" v-if="!isPicked">
-      <div class="flip-card-front"></div>
+      <div class="flip-card-front">{{ number }}</div>
       <div class="flip-card-back">
         <img :src="imgUrl" alt="">
       </div>
